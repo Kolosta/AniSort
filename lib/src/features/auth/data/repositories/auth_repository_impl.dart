@@ -12,11 +12,13 @@ import '../datasources/auth_remote_datasource.dart';
 import '../models/login_model.dart';
 import '../models/register_model.dart';
 
+
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
   final AuthLocalDataSource _authLocalDataSource;
   final SecureLocalStorage _secureLocalStorage;
   final HiveLocalStorage _localStorage;
+
   const AuthRepositoryImpl(
       this._authRemoteDataSource,
       this._authLocalDataSource,
@@ -33,10 +35,8 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       final result = await _authRemoteDataSource.login(model);
-      if (result.password != params.password) {
-        return Left(CredentialFailure());
-      }
 
+      // Sauvegarde des infos utilisateur
       await _secureLocalStorage.save(key: "user_id", value: result.userId);
       await _localStorage.save(key: "user", value: result, boxName: "cache");
 
@@ -51,12 +51,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> logout() async {
     try {
-      final result = await _authRemoteDataSource.logout();
+      await _authRemoteDataSource.logout();
 
+      // Suppression des données locales
       await _secureLocalStorage.delete(key: "user_id");
       await _localStorage.delete(key: "user", boxName: "cache");
 
-      return Right(result);
+      return const Right(null);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -71,8 +72,8 @@ class AuthRepositoryImpl implements AuthRepository {
         password: params.password,
       );
 
-      final result = await _authRemoteDataSource.register(model);
-      return Right(result);
+      await _authRemoteDataSource.register(model);
+      return const Right(null);
     } on DuplicateEmailException {
       return Left(DuplicateEmailFailure());
     } on ServerException {
@@ -84,10 +85,90 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, UserEntity>> checkSignInStatus() async {
     try {
       final result = await _authLocalDataSource.checkSignInStatus();
-
       return Right(result);
     } on CacheException {
       return Left(CacheFailure());
     }
   }
 }
+
+
+// class AuthRepositoryImpl implements AuthRepository {
+//   final AuthRemoteDataSource _authRemoteDataSource;
+//   final AuthLocalDataSource _authLocalDataSource;
+//   final SecureLocalStorage _secureLocalStorage;
+//   final HiveLocalStorage _localStorage;
+//   const AuthRepositoryImpl(
+//       this._authRemoteDataSource,
+//       this._authLocalDataSource,
+//       this._secureLocalStorage,
+//       this._localStorage,
+//       );
+//
+//   @override
+//   Future<Either<Failure, UserEntity>> login(LoginParams params) async {
+//     try {
+//       final model = LoginModel(
+//         email: params.email,
+//         password: params.password,
+//       );
+//
+//       final result = await _authRemoteDataSource.login(model);
+//       if (result.password != params.password) {
+//         return Left(CredentialFailure());
+//       }
+//
+//       await _secureLocalStorage.save(key: "user_id", value: result.userId);
+//       await _localStorage.save(key: "user", value: result, boxName: "cache");
+//
+//       return Right(result);
+//     } on AuthException {
+//       return Left(CredentialFailure());
+//     } on ServerException {
+//       return Left(ServerFailure());
+//     }
+//   }
+//
+//   @override
+//   Future<Either<Failure, void>> logout() async {
+//     try {
+//       final result = await _authRemoteDataSource.logout();
+//
+//       await _secureLocalStorage.delete(key: "user_id");
+//       await _localStorage.delete(key: "user", boxName: "cache");
+//
+//       return Right(result);
+//     } on ServerException {
+//       return Left(ServerFailure());
+//     }
+//   }
+//
+//   @override
+//   Future<Either<Failure, void>> register(RegisterParams params) async {
+//     try {
+//       final model = RegisterModel(
+//         username: params.username,
+//         email: params.email,
+//         password: params.password,
+//       );
+//
+//       final result = await _authRemoteDataSource.register(model);
+//       return Right(result);
+//     } on DuplicateEmailException {
+//       return Left(DuplicateEmailFailure());
+//     } on ServerException {
+//       return Left(ServerFailure());
+//     }
+//   }
+//
+//   @override
+//   Future<Either<Failure, UserEntity>> checkSignInStatus() async {
+//     try {
+//       final result = await _authLocalDataSource.checkSignInStatus();
+//
+//       return Right(result);
+//     } on CacheException {
+//       return Left(CacheFailure());
+//     }
+//   }
+// }

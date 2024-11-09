@@ -14,7 +14,7 @@ class UserAdapter extends TypeAdapter<UserModel> {
       userId: data[0],
       email: data[1],
       username: data[2],
-      password: data[3],
+      // password: data[3],
     );
   }
 

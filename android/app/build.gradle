@@ -10,16 +10,17 @@ plugins {
 
 android {
     namespace = "com.example.anilist_flutter"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 34
+    ndkVersion = "21.3.6528147"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        options.compilerArgs << "-Xlint:deprecation"
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -27,10 +28,11 @@ android {
         applicationId = "com.example.anilist_flutter"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        minSdkVersion 23
+        //noinspection OldTargetApi
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0.0"
     }
 
     buildTypes {
@@ -44,4 +46,12 @@ android {
 
 flutter {
     source = "../.."
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        options.compilerArgs << "-Xlint:-options"
+    }
 }
