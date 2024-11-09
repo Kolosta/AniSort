@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "252603448070",
+    "project_id": "anilist-sort",
+    "storage_bucket": "anilist-sort.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252603448070:android:7840c5c66896e554f1fc87",
+        "android_client_info": {
+          "package_name": "com.example.anilist_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8xQf4UDuRGrBh_M1Umpqimtzb7Wxn1mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252603448070:android:2ef13da5d779be05f1fc87",
+        "android_client_info": {
+          "package_name": "com.example.flutter_bloc_ca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8xQf4UDuRGrBh_M1Umpqimtzb7Wxn1mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
