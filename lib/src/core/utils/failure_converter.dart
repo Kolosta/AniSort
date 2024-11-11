@@ -18,6 +18,9 @@ String mapFailureToMessage(Failure failure) {
       return "Invalid email format";
     case InvalidPasswordFailure:
       return "Invalid password format";
+    case TypeMismatchFailure:
+      // return "Type Mismatch in a model";
+      return (failure as TypeMismatchFailure).message;
     default:
       return "Unexpected error";
   }

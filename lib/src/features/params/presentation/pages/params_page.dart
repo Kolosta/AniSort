@@ -28,7 +28,7 @@ class ParamsPage extends StatefulWidget {
 }
 
 class _ParamsPageState extends State<ParamsPage> {
-  late ProductBloc _productBloc;
+  late ProductBloc _productBloc; //TODO : suprimer le ProductBloc, il est pas utilisé dans les params
 
   @override
   void initState() {

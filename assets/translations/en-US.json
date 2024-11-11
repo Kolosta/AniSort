@@ -32,5 +32,12 @@
   "expensive": "Expensive",
   "product_validation": "{} mininum 4 characters",
   "product_name": "Product name",
-  "product_price": "Product price"
+  "product_price": "Product price",
+  "undefined": "Undefined",
+  "anilist_user_info": "Anilist User Info",
+  "no_description": "No description",
+  "unknown": "Unknown",
+  "score_format": "Score format",
+  "row_order": "Row order"
+
 }

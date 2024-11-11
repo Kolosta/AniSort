@@ -32,5 +32,11 @@
   "expensive": "Cher",
   "product_validation": "{} minimum 4 caractères",
   "product_name": "Nom du produit",
-  "product_price": "Prix du produit"
+  "product_price": "Prix du produit",
+  "undefined": "Indéfini",
+  "anilist_user_info": "Infos Utilisateur Anilist",
+  "no_description": "Pas de description",
+  "unknown": "Inconnu",
+  "score_format": "Format de score",
+  "row_order": "Ordre des ligne"
 }

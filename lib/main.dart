@@ -30,7 +30,7 @@ void main() async {
 
   configureAdapter();
 
-  configureDepedencies();
+  configureDependencies();
 
   Bloc.observer = AppBlocObserver();
 

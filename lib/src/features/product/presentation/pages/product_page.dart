@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -151,6 +150,15 @@ class _HomePageState extends State<HomePage> {
               //     );
               //   },
               // ),
+              leading: Builder(
+                builder: (context) => IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: context.read<ThemeBloc>().state.isDarkMode ? Colors.white : Colors.white, //TODO : Changer selon le theme
+                  ),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
+              ),
               actions: [
                 // IconButton(
                 //   onPressed: () {
@@ -160,7 +168,6 @@ class _HomePageState extends State<HomePage> {
                 //   icon: const Icon(Icons.logout),
                 //   color: Colors.white,
                 // ),
-                //params icon
                 IconButton(
                   onPressed: () {
                     context.pushNamed(
@@ -173,10 +180,56 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   splashRadius: 20.r,
-                  icon: const Icon(Icons.person),
-                  color: Colors.white,
+                  icon: const Icon(Icons.settings),
+                  color: Colors.white, //TODO : Changer selon le theme
                 ),
               ],
+            ),
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Text(
+                      'Navigation',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.home),
+                    title: Text('Product Page'),
+                    onTap: () {
+                      context.goNamed(
+                        AppRoute.home.name,
+                        pathParameters: {
+                          "user_id": widget.user.userId ?? "",
+                          "email": widget.user.email ?? "",
+                          "username": widget.user.username ?? "",
+                        },
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.search),
+                    title: Text('Search Anime'),
+                    onTap: () {
+                      context.pushNamed(
+                        AppRoute.anilistUser.name,
+                        pathParameters: {
+                          'username': widget.user.username ?? '',
+                        },
+                        extra: context,
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
             floatingActionButton: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

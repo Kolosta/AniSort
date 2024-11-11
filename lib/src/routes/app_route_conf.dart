@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/auth/domain/entities/user_entity.dart';
-import '../features/auth/presentation/pages/auth_page.dart';
-import '../features/auth/presentation/pages/login_page.dart';
-import '../features/auth/presentation/pages/register_page.dart';
-import '../features/params/presentation/pages/params_page.dart';
-import '../features/product/domain/usecases/usecase_params.dart';
-import '../features/product/presentation/pages/create_product_page.dart';
-import '../features/product/presentation/pages/product_page.dart';
-import '../features/product/presentation/pages/update_product_page.dart';
 import 'app_route_path.dart';
+import 'routes.dart';
 
 class AppRouteConf {
   GoRouter get router => _router;
@@ -90,6 +82,14 @@ class AppRouteConf {
           );
 
           return ParamsPage(user: user);
+        },
+      ),
+      GoRoute(
+        path: AppRoute.anilistUser.path,
+        name: AppRoute.anilistUser.name,
+        builder: (_, state) {
+          final username = state.pathParameters['username'] ?? '';
+          return AnilistUserPage(username: username);
         },
       ),
     ],

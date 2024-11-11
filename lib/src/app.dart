@@ -1,7 +1,7 @@
+import 'package:anilist_flutter/src/features/anime/presentation/bloc/anilist_user_bloc.dart';
 import 'package:anilist_flutter/src/routes/app_route_conf.dart';
 import 'package:anilist_flutter/src/routes/app_route_path.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

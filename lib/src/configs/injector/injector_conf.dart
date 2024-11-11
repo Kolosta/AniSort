@@ -3,23 +3,14 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import '../../core/api/api_helper.dart';
-import '../../core/api/api_interceptor.dart';
-import '../../core/blocs/theme/theme_bloc.dart';
-import '../../core/blocs/translate/translate_bloc.dart';
-import '../../core/cache/hive_local_storage.dart';
-import '../../core/cache/secure_local_storage.dart';
-import '../../core/network/network_checker.dart';
-import '../../features/auth/di/auth_depedency.dart';
-import '../../features/product/di/product_depedency.dart';
-import '../../routes/app_route_conf.dart';
 import 'injector.dart';
 
 final getIt = GetIt.I;
 
-void configureDepedencies() {
+void configureDependencies() {
   AuthDepedency.init();
   ProductDependency.init();
+  AnilistUserDependency.init();
 
   getIt.registerLazySingleton(
         () => ThemeBloc(),

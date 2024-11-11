@@ -1,0 +1,1 @@
+export 'anilist_user_model.dart';

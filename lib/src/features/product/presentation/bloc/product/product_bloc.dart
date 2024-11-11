@@ -42,8 +42,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     );
 
     result.fold(
-          (l) => emit(CreateProductFailureState(mapFailureToMessage(l))),
-          (r) => emit(CreateProductSuccessState()),
+          (failure) => emit(CreateProductFailureState(mapFailureToMessage(failure))),
+          (success) => emit(CreateProductSuccessState()),
     );
   }
 
@@ -57,8 +57,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     );
 
     result.fold(
-          (l) => emit(DeleteProductFailureState(mapFailureToMessage(l))),
-          (r) => emit(DeleteProductSuccessState()),
+          (failure) => emit(DeleteProductFailureState(mapFailureToMessage(failure))),
+          (success) => emit(DeleteProductSuccessState()),
     );
   }
 
@@ -68,8 +68,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     final result = await _getProductList.call(NoParams());
 
     result.fold(
-          (l) => emit(GetProductListFailureState(mapFailureToMessage(l))),
-          (r) => emit(GetProductListSuccessState(r)),
+          (failure) => emit(GetProductListFailureState(mapFailureToMessage(failure))),
+          (productList) => emit(GetProductListSuccessState(productList)),
     );
   }
 
@@ -85,8 +85,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     );
 
     result.fold(
-          (l) => emit(UpdateProductFailureState(mapFailureToMessage(l))),
-          (r) => emit(UpdateProductSuccessState()),
+          (failure) => emit(UpdateProductFailureState(mapFailureToMessage(failure))),
+          (success) => emit(UpdateProductSuccessState()),
     );
   }
 
