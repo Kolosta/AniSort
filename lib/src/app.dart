@@ -1,4 +1,4 @@
-import 'package:anilist_flutter/src/features/anime/presentation/bloc/anilist_user_bloc.dart';
+import 'package:anilist_flutter/src/features/anime/presentation/bloc/anilist_user/anilist_user_bloc.dart';
 import 'package:anilist_flutter/src/routes/app_route_conf.dart';
 import 'package:anilist_flutter/src/routes/app_route_path.dart';
 import 'package:easy_localization/easy_localization.dart';

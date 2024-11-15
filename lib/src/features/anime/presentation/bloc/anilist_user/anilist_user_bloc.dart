@@ -1,10 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-import '../../../../core/utils/failure_converter.dart';
-import '../../domain/entities/anilist_user_entity.dart';
-import '../../domain/usecases/get_anilist_user_usecase.dart';
+import '../../../../../core/utils/failure_converter.dart';
+import '../../../domain/entities/anilist_user_entity.dart';
+import '../../../domain/usecases/get_anilist_user_usecase.dart';
 
 part 'anilist_user_event.dart';
 part 'anilist_user_state.dart';

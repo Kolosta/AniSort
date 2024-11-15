@@ -4,7 +4,7 @@ import '../user_model.dart';
 
 class UserAdapter extends TypeAdapter<UserModel> {
   @override
-  final typeId = 0;
+  final typeId = 0; //Ensure this is unique
 
   @override
   UserModel read(BinaryReader reader) {

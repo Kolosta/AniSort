@@ -15,6 +15,7 @@ import '../../../../routes/app_route_path.dart';
 import '../../../../widgets/dialog_widget.dart';
 import '../../../../widgets/loading_widget.dart';
 import '../../../../widgets/snackbar_widget.dart';
+import '../../../anime/domain/entities/anime_list_params.dart';
 import '../../../auth/domain/entities/user_entity.dart';
 import '../../../auth/presentation/bloc/auth/auth_bloc.dart';
 import '../bloc/product/product_bloc.dart';
@@ -193,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Navigation',
                       style: TextStyle(
                         color: Colors.white,
@@ -202,8 +203,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.home),
-                    title: Text('Product Page'),
+                    leading: const Icon(Icons.home),
+                    title: const Text('Product Page'),
                     onTap: () {
                       context.goNamed(
                         AppRoute.home.name,
@@ -216,8 +217,8 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.search),
-                    title: Text('Search Anime'),
+                    leading: const Icon(Icons.person),
+                    title: const Text('Show Anilist User'),
                     onTap: () {
                       context.pushNamed(
                         AppRoute.anilistUser.name,
@@ -225,6 +226,29 @@ class _HomePageState extends State<HomePage> {
                           'username': widget.user.username ?? '',
                         },
                         extra: context,
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.search),
+                    title: const Text('Search Anime'),
+                    onTap: () {
+                      // context.pushNamed(
+                      //   AppRoute.animeList.name,
+                      //   pathParameters: {
+                      //     'username': widget.user.username ?? '',
+                      //     'type': 'ANIME',
+                      //     'status': 'CURRENT,PLANNING',
+                      //   },
+                      //   extra: context,
+                      // );
+                      context.pushNamed(
+                        AppRoute.animeList.name,
+                        extra: AnimeListParams(
+                          username: widget.user.username ?? '',
+                          type: 'ANIME',
+                          status: ['DROPPED', 'PAUSED'],
+                        ),
                       );
                     },
                   ),

@@ -10,4 +10,5 @@ export '../core/cache/secure_local_storage.dart';
 export '../configs/injector/injector_conf.dart';
 export '../features/anime/presentation/pages/anilist_user_page.dart';
 export '../features/params/presentation/pages/params_page.dart';
+export '../features/anime/presentation/pages/anime_list_page.dart';
 

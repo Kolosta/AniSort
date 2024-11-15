@@ -8,7 +8,7 @@ import 'package:anilist_flutter/src/core/extensions/string_extension.dart';
 import '../../../../configs/injector/injector_conf.dart';
 import '../../../../widgets/leading_back_button_widget.dart';
 import '../../data/models/models.dart';
-import '../bloc/anilist_user_bloc.dart';
+import '../bloc/anilist_user/anilist_user_bloc.dart';
 
 class AnilistUserPage extends StatelessWidget {
   final String username;

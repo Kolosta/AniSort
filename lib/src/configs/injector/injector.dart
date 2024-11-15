@@ -1,5 +1,6 @@
 export '../../features/product/di/product_depedency.dart';
 export '../../features/anime/di/anilist_user_dependency.dart';
+export '../../features/anime/di/anime_dependency.dart';
 
 export '../../core/api/api_helper.dart';
 export '../../core/api/api_interceptor.dart';

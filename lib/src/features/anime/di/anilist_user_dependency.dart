@@ -3,7 +3,7 @@ import '../../../core/api/api_helper.dart';
 import '../data/datasources/anilist_user_remote_datasource.dart';
 import '../data/repositories/anilist_user_repository_impl.dart';
 import '../domain/usecases/get_anilist_user_usecase.dart';
-import '../presentation/bloc/anilist_user_bloc.dart';
+import '../presentation/bloc/anilist_user/anilist_user_bloc.dart';
 
 class AnilistUserDependency {
   AnilistUserDependency._();

@@ -11,6 +11,7 @@ void configureDependencies() {
   AuthDepedency.init();
   ProductDependency.init();
   AnilistUserDependency.init();
+  AnimeDependency.init();
 
   getIt.registerLazySingleton(
         () => ThemeBloc(),

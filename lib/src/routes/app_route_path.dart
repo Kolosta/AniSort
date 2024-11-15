@@ -6,7 +6,9 @@ enum AppRoute {
   createProduct(path: "/product/add"),
   updateProduct(path: "/product/update/:product_id/:product_name/:product_price"),
   params(path: "/params/:user_id/:email/:username"),
-  anilistUser(path: "/anilist/:username");
+  anilistUser(path: "/anilist/:username"),
+  animeList(path: "/anime_list");
+
 
   final String path;
   const AppRoute({required this.path});

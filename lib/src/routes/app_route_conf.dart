@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../features/anime/domain/entities/anime_list_params.dart';
+import '../features/anime/presentation/pages/anime_list_page.dart';
 import 'app_route_path.dart';
 import 'routes.dart';
 
@@ -90,6 +92,28 @@ class AppRouteConf {
         builder: (_, state) {
           final username = state.pathParameters['username'] ?? '';
           return AnilistUserPage(username: username);
+        },
+      ),
+      // GoRoute(
+      //   path: AppRoute.animeList.path,
+      //   name: AppRoute.animeList.name,
+      //   builder: (_, state) {
+      //     final username = state.pathParameters['username'] ?? '';
+      //     final type = state.pathParameters['type'] ?? '';
+      //     final status = (state.pathParameters['status'] ?? '').split(',');
+      //     return AnimeListPage(username: username, type: type, status: status);
+      //   },
+      // ),
+      GoRoute(
+        path: AppRoute.animeList.path,
+        name: AppRoute.animeList.name,
+        builder: (_, state) {
+          final animeListParams = state.extra as AnimeListParams;
+          return AnimeListPage(
+            username: animeListParams.username,
+            type: animeListParams.type,
+            status: animeListParams.status,
+          );
         },
       ),
     ],

@@ -4,4 +4,5 @@ import 'adapter.dart';
 
 void configureAdapter() {
   Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(AnimeAdapter());
 }

@@ -38,5 +38,6 @@
   "no_description": "Pas de description",
   "unknown": "Inconnu",
   "score_format": "Format de score",
-  "row_order": "Ordre des ligne"
+  "row_order": "Ordre des ligne",
+  "anime_list": "Liste d'animés"
 }

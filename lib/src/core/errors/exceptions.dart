@@ -11,7 +11,19 @@ class ServerException implements Exception {
   }
 }
 
-class CacheException implements Exception {}
+// class CacheException implements Exception {}
+
+//CacheException with parameter
+class CacheException implements Exception {
+  final String message;
+
+  CacheException([this.message = ""]);
+
+  @override
+  String toString() {
+    return "CacheException: $message";
+  }
+}
 
 class AuthException implements Exception {}
 
