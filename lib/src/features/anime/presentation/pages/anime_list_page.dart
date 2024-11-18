@@ -4,9 +4,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:hive/hive.dart';
 
 import '../../../../configs/injector/injector_conf.dart';
+import '../../../../core/utils/logger.dart';
 import '../../data/models/anime_model.dart';
 import '../bloc/anime/anime_list_bloc.dart';
 import '../widgets/anime_tile.dart';
+import '../../../../core/themes/app_color.dart';
+import '../../../../core/themes/app_font.dart';
+import '../../../../core/blocs/theme/theme_bloc.dart';
 
 class AnimeListPage extends StatefulWidget {
   final String username;
@@ -30,8 +34,9 @@ class _AnimeListPageState extends State<AnimeListPage> {
 
   @override
   void initState() {
-    _animeListBloc = getIt<AnimeListBloc>();
     super.initState();
+    _animeListBloc = getIt<AnimeListBloc>();
+    _animeListBloc.add(GetLocalAnimeListEvent());
   }
 
   Future<void> _clearCache() async {
@@ -47,28 +52,24 @@ class _AnimeListPageState extends State<AnimeListPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Cache cleared successfully')),
     );
+    _animeListBloc.add(GetLocalAnimeListEvent());
   }
 
   Future<void> _showCacheData() async {
-    const String boxName = 'cache';
-    if (Hive.isBoxOpen(boxName)) {
-      final box = Hive.box(boxName);
-      final data = box.get('animeList');
-      setState(() {
-        _cacheData = (data as List).map((e) => AnimeModel.fromMap(Map<String, dynamic>.from(e))).toList();
-      });
-    } else {
-      final box = await Hive.openBox(boxName);
-      final data = box.get('animeList');
-      setState(() {
-        _cacheData = (data as List).map((e) => AnimeModel.fromMap(Map<String, dynamic>.from(e))).toList();
-      });
-      await box.close();
-    }
+    _animeListBloc.add(GetLocalAnimeListEvent());
   }
+
+  Future<void> _uploadCacheData() async {
+    logger.d('Cache Data: $_cacheData');
+    _animeListBloc.add(UploadAnimeListToFirebaseEvent());
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    final themeBloc = context.read<ThemeBloc>();
+    final isDarkMode = themeBloc.state.isDarkMode;
+
     return BlocProvider(
       create: (_) => _animeListBloc,
       child: Scaffold(
@@ -76,31 +77,8 @@ class _AnimeListPageState extends State<AnimeListPage> {
           title: Text('anime_list'.tr()),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  _animeListBloc.add(GetAnimeListEvent(
-                    username: widget.username,
-                    type: widget.type,
-                    status: widget.status,
-                  ));
-                },
-                child: const Text('Get from Anilist API'),
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: _clearCache,
-                child: const Text('Clear Cache'),
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: _showCacheData,
-                child: const Text('Show Cache Data'),
-              ),
-            ),
             Expanded(
               child: BlocBuilder<AnimeListBloc, AnimeListState>(
                 builder: (context, state) {
@@ -109,30 +87,98 @@ class _AnimeListPageState extends State<AnimeListPage> {
                   } else if (state is AnimeListFailureState) {
                     return Center(child: Text(state.message));
                   } else if (state is AnimeListSuccessState) {
-                    return ListView.builder(
-                      itemCount: state.animeList.length,
-                      itemBuilder: (context, index) {
-                        final anime = state.animeList[index];
-                        return AnimeTile(anime: anime);
-                      },
-                    );
+                    _cacheData = state.animeList.map((anime) => AnimeModel.fromEntity(anime)).toList();
+                    if (_cacheData.isEmpty) {
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Center(
+                          child: Text(
+                            'No anime in cache'.tr(),
+                            style: AppFont.normal.s16.copyWith(
+                              color: isDarkMode ? Colors.white : Colors.black,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: _cacheData.length,
+                        itemBuilder: (context, index) {
+                          final anime = _cacheData[index];
+                          return AnimeTile(anime: anime, isFromCache: true);
+                        },
+                      );
+                    }
                   }
                   return const SizedBox();
                 },
               ),
             ),
-            if (_cacheData.isNotEmpty)
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _cacheData.length,
-                  itemBuilder: (context, index) {
-                    final anime = _cacheData[index];
-                    return AnimeTile(anime: anime, isFromCache: true);
-                  },
-                ),
-              ),
           ],
         ),
+        bottomNavigationBar: Container(
+          color: isDarkMode ? AppColor.secondaryLight : AppColor.secondaryDark,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildActionButton(
+                context,
+                icon: Icons.import_export,
+                label: 'import'.tr(),
+                onTap: () {
+                  _animeListBloc.add(ImportAnimeListFromAPIEvent(
+                    username: widget.username,
+                    type: widget.type,
+                    status: widget.status,
+                  ));
+                },
+              ),
+              _buildActionButton(
+                context,
+                icon: Icons.clear,
+                label: 'clear_cache'.tr(),
+                onTap: _clearCache,
+              ),
+              _buildActionButton(
+                context,
+                icon: Icons.visibility,
+                label: 'show_cache'.tr(),
+                onTap: _showCacheData,
+              ),
+              _buildActionButton(
+                context,
+                icon: Icons.upload,
+                label: 'upload'.tr(),
+                onTap: _uploadCacheData,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButton(BuildContext context, {required IconData icon, required String label, required VoidCallback onTap}) {
+    final themeBloc = context.read<ThemeBloc>();
+    final isDarkMode = themeBloc.state.isDarkMode;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
+          Text(
+            label,
+            style: AppFont.normal.s12.copyWith(
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }

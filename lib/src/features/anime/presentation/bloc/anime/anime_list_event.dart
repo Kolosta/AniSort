@@ -8,12 +8,12 @@ abstract class AnimeListEvent extends Equatable {
 }
 
 
-class GetAnimeListEvent extends AnimeListEvent {
+class ImportAnimeListFromAPIEvent extends AnimeListEvent {
   final String username;
   final String type;
   final List<String> status;
 
-  const GetAnimeListEvent({
+  const ImportAnimeListFromAPIEvent({
     required this.username,
     required this.type,
     required this.status,
@@ -22,3 +22,24 @@ class GetAnimeListEvent extends AnimeListEvent {
   @override
   List<Object> get props => [username, type, status];
 }
+
+
+class GetLocalAnimeListEvent extends AnimeListEvent {}
+
+
+class GetAnimeListFromApiEvent extends AnimeListEvent {
+  final String username;
+  final String type;
+  final List<String> status;
+
+  const GetAnimeListFromApiEvent({
+    required this.username,
+    required this.type,
+    required this.status,
+  });
+
+  @override
+  List<Object> get props => [username, type, status];
+}
+
+class UploadAnimeListToFirebaseEvent extends AnimeListEvent {}

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class AnimeEntity extends Equatable {
+  final int id;
   final String username;
   final String title;
   final String type;
@@ -27,6 +28,7 @@ class AnimeEntity extends Equatable {
   final int localScore;
 
   const AnimeEntity({
+    required this.id,
     required this.username,
     required this.title,
     required this.type,
@@ -55,6 +57,7 @@ class AnimeEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         username,
         title,
         type,

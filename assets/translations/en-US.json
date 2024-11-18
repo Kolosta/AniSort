@@ -39,5 +39,9 @@
   "unknown": "Unknown",
   "score_format": "Score format",
   "row_order": "Row order",
-  "anime_list": "Anime List"
+  "anime_list": "Anime List",
+  "import": "Import",
+  "clear_cache": "Clear Cache",
+  "show_cache": "Show Cache",
+  "upload": "Upload"
 }

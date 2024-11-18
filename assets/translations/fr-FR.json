@@ -39,5 +39,9 @@
   "unknown": "Inconnu",
   "score_format": "Format de score",
   "row_order": "Ordre des ligne",
-  "anime_list": "Liste d'animés"
+  "anime_list": "Liste d'animés",
+  "import": "Importer",
+  "clear_cache": "Vider le cache",
+  "show_cache": "Afficher le cache",
+  "upload": "Télécharger"
 }

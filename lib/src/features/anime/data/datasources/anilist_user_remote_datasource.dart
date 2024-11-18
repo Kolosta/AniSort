@@ -14,7 +14,10 @@ class AnilistUserRemoteDataSourceImpl implements AnilistUserRemoteDataSource {
   const AnilistUserRemoteDataSourceImpl(this._helper);
 
   @override
-  Future<AnilistUserModel> fetchAnilistUser(String username) async {
+  Future<AnilistUserModel> fetchAnilistUser(String username) => fetchUserFromApi(username);
+
+
+  Future<AnilistUserModel> fetchUserFromApi(String username) async {
     const query = '''
       query GetUserInfo(\$username: String) {
         User(search: \$username) {

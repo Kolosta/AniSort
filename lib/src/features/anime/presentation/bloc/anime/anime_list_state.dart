@@ -28,3 +28,5 @@ class AnimeListFailureState extends AnimeListState {
   @override
   List<Object> get props => [message];
 }
+
+class AnimeListUploadSuccessState extends AnimeListState {}

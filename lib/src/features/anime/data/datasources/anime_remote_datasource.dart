@@ -2,12 +2,14 @@ import 'package:anilist_flutter/src/core/api/api_helper.dart';
 import 'package:anilist_flutter/src/core/api/api_url.dart';
 import 'package:anilist_flutter/src/core/errors/exceptions.dart';
 import 'package:anilist_flutter/src/features/anime/data/models/anime_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../core/utils/logger.dart';
 import 'anime_local_datasource.dart';
 
 abstract class AnimeRemoteDataSource {
   Future<List<AnimeModel>> fetchAnimeList(String username, String type, List<String> status);
+  Future<void> uploadAnimeList(List<AnimeModel> animeList);
 }
 
 class AnimeRemoteDataSourceImpl implements AnimeRemoteDataSource {
@@ -17,8 +19,12 @@ class AnimeRemoteDataSourceImpl implements AnimeRemoteDataSource {
   // const AnimeRemoteDataSourceImpl(this._helper);
   const AnimeRemoteDataSourceImpl(this._helper, this._localDataSource);
 
+
   @override
-  Future<List<AnimeModel>> fetchAnimeList(String username, String type, List<String> status) async {
+  Future<List<AnimeModel>> fetchAnimeList(String username, String type, List<String> status) => fetchAnimeListFromUser(username, type, status);
+
+
+  Future<List<AnimeModel>> fetchAnimeListFromUser(String username, String type, List<String> status) async {
     const query = '''
       query GetUserMediaListWithAnimeInfo(\$userName: String, \$type: MediaType, \$status: [MediaListStatus]) {
         MediaListCollection(userName: \$userName, type: \$type, status_in: \$status) { 
@@ -105,12 +111,25 @@ class AnimeRemoteDataSourceImpl implements AnimeRemoteDataSource {
           .toList();
 
       // Save to local storage
-      // await _localDataSource.saveAnimeList(data);
+      // await _localDataSource.saveLocalAnimeList(data);
 
       return data;
     } catch (e) {
       logger.e(e);
       throw ServerException('A error occurred: ${e.toString()}');
+    }
+  }
+
+
+  @override
+  Future<void> uploadAnimeList(List<AnimeModel> animeList) async {
+    try {
+      for (final anime in animeList) {
+        await ApiUrl.animeCollection.doc(anime.id.toString()).set(anime.toMap(), SetOptions(merge: true));
+      }
+    } catch (e) {
+      logger.e(e);
+      throw ServerException();
     }
   }
 }

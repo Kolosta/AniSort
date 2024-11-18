@@ -9,6 +9,7 @@ class AnimeAdapter extends TypeAdapter<AnimeModel> {
 @override
 AnimeModel read(BinaryReader reader) {
   return AnimeModel(
+    id: reader.readInt() ?? 0,
     username: reader.readString() ?? '',
     title: reader.readString() ?? '',
     type: reader.readString() ?? '',
@@ -38,6 +39,7 @@ AnimeModel read(BinaryReader reader) {
 
   @override
   void write(BinaryWriter writer, AnimeModel obj) {
+    writer.writeInt(obj.id);
     writer.writeString(obj.username);
     writer.writeString(obj.title);
     writer.writeString(obj.type);
