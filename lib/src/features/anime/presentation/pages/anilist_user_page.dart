@@ -20,10 +20,10 @@ class AnilistUserPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<AnilistUserBloc>()..add(GetAnilistUserEvent(username)),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('anilist_user_info'.tr()),
-          leading: const AppBackButton(),
-        ),
+        // appBar: AppBar(
+        //   title: Text('anilist_user_info'.tr()),
+        //   leading: const AppBackButton(),
+        // ),
         body: BlocBuilder<AnilistUserBloc, AnilistUserState>(
           builder: (context, state) {
             if (state is AnilistUserLoadingState) {

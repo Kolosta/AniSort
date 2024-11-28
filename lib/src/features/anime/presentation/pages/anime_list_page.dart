@@ -11,6 +11,7 @@ import '../widgets/anime_tile.dart';
 import '../../../../core/themes/app_color.dart';
 import '../../../../core/themes/app_font.dart';
 import '../../../../core/blocs/theme/theme_bloc.dart';
+import '../widgets/expandable_floatting_button.dart';
 
 class AnimeListPage extends StatefulWidget {
   final String username;
@@ -73,9 +74,6 @@ class _AnimeListPageState extends State<AnimeListPage> {
     return BlocProvider(
       create: (_) => _animeListBloc,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('anime_list'.tr()),
-        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,7 +85,9 @@ class _AnimeListPageState extends State<AnimeListPage> {
                   } else if (state is AnimeListFailureState) {
                     return Center(child: Text(state.message));
                   } else if (state is AnimeListSuccessState) {
-                    _cacheData = state.animeList.map((anime) => AnimeModel.fromEntity(anime)).toList();
+                    _cacheData = state.animeList
+                        .map((anime) => AnimeModel.fromEntity(anime))
+                        .toList();
                     if (_cacheData.isEmpty) {
                       return Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -116,48 +116,40 @@ class _AnimeListPageState extends State<AnimeListPage> {
             ),
           ],
         ),
-        bottomNavigationBar: Container(
-          color: isDarkMode ? AppColor.secondaryLight : AppColor.secondaryDark,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildActionButton(
-                context,
-                icon: Icons.import_export,
-                label: 'import'.tr(),
-                onTap: () {
-                  _animeListBloc.add(ImportAnimeListFromAPIEvent(
-                    username: widget.username,
-                    type: widget.type,
-                    status: widget.status,
-                  ));
-                },
-              ),
-              _buildActionButton(
-                context,
-                icon: Icons.clear,
-                label: 'clear_cache'.tr(),
-                onTap: _clearCache,
-              ),
-              _buildActionButton(
-                context,
-                icon: Icons.visibility,
-                label: 'show_cache'.tr(),
-                onTap: _showCacheData,
-              ),
-              _buildActionButton(
-                context,
-                icon: Icons.upload,
-                label: 'upload'.tr(),
-                onTap: _uploadCacheData,
-              ),
-            ],
-          ),
+        floatingActionButton: ExpandableFloatingButton(
+          actions: [
+            ExpandableAction(
+              icon: Icons.import_export,
+              label: 'Import',
+              onTap: () {
+                _animeListBloc.add(ImportAnimeListFromAPIEvent(
+                  username: widget.username,
+                  type: widget.type,
+                  status: widget.status,
+                ));
+              },
+            ),
+            ExpandableAction(
+              icon: Icons.clear,
+              label: 'Clear Cache',
+              onTap: _clearCache,
+            ),
+            ExpandableAction(
+              icon: Icons.visibility,
+              label: 'Show Cache',
+              onTap: _showCacheData,
+            ),
+            ExpandableAction(
+              icon: Icons.upload,
+              label: 'Upload',
+              onTap: _uploadCacheData,
+            ),
+          ],
         ),
       ),
     );
   }
+
 
   Widget _buildActionButton(BuildContext context, {required IconData icon, required String label, required VoidCallback onTap}) {
     final themeBloc = context.read<ThemeBloc>();

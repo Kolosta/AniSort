@@ -11,6 +11,7 @@ import '../../../../core/blocs/theme/theme_bloc.dart';
 import '../../../../core/blocs/translate/translate_bloc.dart';
 import '../../../../core/constants/list_translation_locale.dart';
 import '../../../../core/network/network_checker.dart';
+import '../../../../core/themes/app_color.dart';
 import '../../../../routes/app_route_path.dart';
 import '../../../../widgets/dialog_widget.dart';
 import '../../../../widgets/loading_widget.dart';
@@ -138,54 +139,54 @@ class _HomePageState extends State<HomePage> {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text("hello".tr(args: [widget.user.username ?? ""])),
-              // leading: BlocBuilder<TranslateBloc, TranslateState>(
-              //   builder: (_, state) {
-              //     return IconButton(
-              //       onPressed: () {
-              //         _changeLanguage(context, state.languageCode);
-              //       },
-              //       icon: Text(state.previousCountryCode),
-              //       splashRadius: 20.r,
-              //     );
-              //   },
-              // ),
-              leading: Builder(
-                builder: (context) => IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    color: context.read<ThemeBloc>().state.isDarkMode ? Colors.white : Colors.white, //TODO : Changer selon le theme
-                  ),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                ),
-              ),
-              actions: [
-                // IconButton(
-                //   onPressed: () {
-                //     _logout(context);
-                //   },
-                //   splashRadius: 20.r,
-                //   icon: const Icon(Icons.logout),
-                //   color: Colors.white,
-                // ),
-                IconButton(
-                  onPressed: () {
-                    context.pushNamed(
-                      AppRoute.params.name,
-                      pathParameters: {
-                        "user_id": widget.user.userId ?? "",
-                        "email": widget.user.email ?? "",
-                        "username": widget.user.username ?? "",
-                      },
-                    );
-                  },
-                  splashRadius: 20.r,
-                  icon: const Icon(Icons.settings),
-                  color: Colors.white, //TODO : Changer selon le theme
-                ),
-              ],
-            ),
+            // appBar: AppBar(
+            //   title: Text("hello".tr(args: [widget.user.username ?? ""])),
+            //   // leading: BlocBuilder<TranslateBloc, TranslateState>(
+            //   //   builder: (_, state) {
+            //   //     return IconButton(
+            //   //       onPressed: () {
+            //   //         _changeLanguage(context, state.languageCode);
+            //   //       },
+            //   //       icon: Text(state.previousCountryCode),
+            //   //       splashRadius: 20.r,
+            //   //     );
+            //   //   },
+            //   // ),
+            //   leading: Builder(
+            //     builder: (context) => IconButton(
+            //       icon: Icon(
+            //         Icons.menu,
+            //         color: context.read<ThemeBloc>().state.isDarkMode ? Colors.white : Colors.white, //TODO : Changer selon le theme
+            //       ),
+            //       onPressed: () => Scaffold.of(context).openDrawer(),
+            //     ),
+            //   ),
+            //   actions: [
+            //     // IconButton(
+            //     //   onPressed: () {
+            //     //     _logout(context);
+            //     //   },
+            //     //   splashRadius: 20.r,
+            //     //   icon: const Icon(Icons.logout),
+            //     //   color: Colors.white,
+            //     // ),
+            //     IconButton(
+            //       onPressed: () {
+            //         context.pushNamed(
+            //           AppRoute.params.name,
+            //           pathParameters: {
+            //             "user_id": widget.user.userId ?? "",
+            //             "email": widget.user.email ?? "",
+            //             "username": widget.user.username ?? "",
+            //           },
+            //         );
+            //       },
+            //       splashRadius: 20.r,
+            //       icon: const Icon(Icons.settings),
+            //       color: Colors.white, //TODO : Changer selon le theme
+            //     ),
+            //   ],
+            // ),
             drawer: Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -282,8 +283,8 @@ class _HomePageState extends State<HomePage> {
                     "add_product".tr(),
                     style: TextStyle(
                       color: context.read<ThemeBloc>().state.isDarkMode
-                          ? Colors.white
-                          : Colors.black,
+                          ? AppColor.onPrimaryDark
+                          : AppColor.onPrimaryLight,
                     ),
                   ),
                 ),

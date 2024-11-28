@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/anime/domain/entities/anime_list_params.dart';
-import '../features/anime/presentation/pages/anime_list_page.dart';
+import '../features/main/presentation/pages/main_page.dart';
 import 'app_route_path.dart';
 import 'routes.dart';
 
@@ -42,6 +42,20 @@ class AppRouteConf {
           );
 
           return HomePage(user: user);
+        },
+      ),
+      GoRoute(
+        path: AppRoute.mainPage.path,
+        name: AppRoute.mainPage.name,
+        builder: (_, state) {
+          final params = state.pathParameters;
+          final user = UserEntity(
+            username: params["username"],
+            email: params["email"],
+            userId: params["user_id"],
+          );
+
+          return MainPage(user: user);
         },
       ),
       GoRoute(

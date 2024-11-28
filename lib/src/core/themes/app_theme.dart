@@ -18,7 +18,7 @@ class AppTheme {
         titleTextStyle: AppFont.bold.s16,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: isDark ? AppColor.primaryDark : AppColor.secondaryDark,
+        backgroundColor: isDark ? AppColor.secondaryDark : AppColor.secondaryLight,
         foregroundColor: isDark ? Colors.white : Colors.black,
         elevation: 2.h,
         extendedTextStyle: AppFont.normal.s14,

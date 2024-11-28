@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
                 };
 
                 router.goNamed(
-                  AppRoute.home.name,
+                  AppRoute.mainPage.name,
                   pathParameters: userMap,
                 );
               }
