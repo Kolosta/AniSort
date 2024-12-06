@@ -1,6 +1,5 @@
 import '../../domain/entities/anime_entity.dart';
 
-// AnimeModel
 class AnimeModel extends AnimeEntity {
   final int localScore;
 
@@ -19,7 +18,10 @@ class AnimeModel extends AnimeEntity {
     required super.popularity,
     required super.synonyms,
     required super.bannerImage,
-    required super.coverImage,
+    required super.coverImageExtraLarge,
+    required super.coverImageLarge,
+    required super.coverImageMedium,
+    required super.coverImageColor,
     required super.season,
     required super.seasonYear,
     required super.score,
@@ -31,9 +33,8 @@ class AnimeModel extends AnimeEntity {
     required super.updatedAt,
     required this.localScore,
   }) : super(
-    localScore: localScore,
-  );
-
+          localScore: localScore,
+        );
 
   factory AnimeModel.fromJson(Map<String, dynamic> json) {
     final media = json['media'];
@@ -48,14 +49,17 @@ class AnimeModel extends AnimeEntity {
       duration: media['duration'] ?? 0,
       source: media['source'] ?? '',
       studios: (media['studios']['nodes'] as List<dynamic>?)
-          ?.map((studio) => studio['name'] as String)
-          .toList() ??
+              ?.map((studio) => studio['name'] as String)
+              .toList() ??
           [],
       genres: List<String>.from(media['genres'] ?? []),
       popularity: media['popularity'] ?? 0,
       synonyms: List<String>.from(media['synonyms'] ?? []),
       bannerImage: media['bannerImage'] ?? '',
-      coverImage: media['coverImage']['extraLarge'] ?? '',
+      coverImageExtraLarge: media['coverImage']['extraLarge'] ?? '',
+      coverImageLarge: media['coverImage']['large'] ?? '',
+      coverImageMedium: media['coverImage']['medium'] ?? '',
+      coverImageColor: media['coverImage']['color'],
       season: media['season'] ?? '',
       seasonYear: media['seasonYear'] ?? 0,
       score: json['score'] ?? 0,
@@ -64,17 +68,17 @@ class AnimeModel extends AnimeEntity {
       notes: json['notes'] ?? '',
       startedAt: json['startedAt'] != null
           ? DateTime(
-        json['startedAt']['year'] ?? 0,
-        json['startedAt']['month'] ?? 1,
-        json['startedAt']['day'] ?? 1,
-      )
+              json['startedAt']['year'] ?? 0,
+              json['startedAt']['month'] ?? 1,
+              json['startedAt']['day'] ?? 1,
+            )
           : DateTime.now(),
       completedAt: json['completedAt'] != null
           ? DateTime(
-        json['completedAt']['year'] ?? 0,
-        json['completedAt']['month'] ?? 1,
-        json['completedAt']['day'] ?? 1,
-      )
+              json['completedAt']['year'] ?? 0,
+              json['completedAt']['month'] ?? 1,
+              json['completedAt']['day'] ?? 1,
+            )
           : DateTime.now(),
       updatedAt: json['updatedAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(json['updatedAt'] * 1000)
@@ -86,7 +90,6 @@ class AnimeModel extends AnimeEntity {
   static List<AnimeModel> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => AnimeModel.fromJson(json)).toList();
   }
-
 
   factory AnimeModel.fromMap(Map<String, dynamic> map) {
     return AnimeModel(
@@ -104,16 +107,25 @@ class AnimeModel extends AnimeEntity {
       popularity: map['popularity'] ?? 0,
       synonyms: List<String>.from(map['synonyms'] ?? []),
       bannerImage: map['bannerImage'] ?? '',
-      coverImage: map['coverImage'] ?? '',
+      coverImageExtraLarge: map['coverImageExtraLarge'] ?? '',
+      coverImageLarge: map['coverImageLarge'] ?? '',
+      coverImageMedium: map['coverImageMedium'] ?? '',
+      coverImageColor: map['coverImageColor'],
       season: map['season'] ?? '',
       seasonYear: map['seasonYear'] ?? 0,
       score: map['score'] ?? 0,
       progress: map['progress'] ?? 0,
       repeat: map['repeat'] ?? 0,
       notes: map['notes'] ?? '',
-      startedAt: map['startedAt'] != null ? DateTime.parse(map['startedAt']) : DateTime.now(),
-      completedAt: map['completedAt'] != null ? DateTime.parse(map['completedAt']) : DateTime.now(),
-      updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
+      startedAt: map['startedAt'] != null
+          ? DateTime.parse(map['startedAt'])
+          : DateTime.now(),
+      completedAt: map['completedAt'] != null
+          ? DateTime.parse(map['completedAt'])
+          : DateTime.now(),
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.parse(map['updatedAt'])
+          : DateTime.now(),
       localScore: map['localScore'] ?? 0,
     );
   }
@@ -121,16 +133,12 @@ class AnimeModel extends AnimeEntity {
   static List<AnimeModel> fromMapList(List<dynamic> mapList) {
     return mapList.map((json) => AnimeModel.fromMap(json)).toList();
   }
-  //OLD
-  // static List<AnimeModel> fromMapList(List<Map<String, dynamic>> mapList) {
-  //   return mapList.map((map) => AnimeModel.fromMap(map)).toList();
-  // }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'title': title,
       'username': username,
+      'title': title,
       'type': type,
       'format': format,
       'status': status,
@@ -142,7 +150,10 @@ class AnimeModel extends AnimeEntity {
       'popularity': popularity,
       'synonyms': synonyms,
       'bannerImage': bannerImage,
-      'coverImage': coverImage,
+      'coverImageExtraLarge': coverImageExtraLarge,
+      'coverImageLarge': coverImageLarge,
+      'coverImageMedium': coverImageMedium,
+      'coverImageColor': coverImageColor,
       'season': season,
       'seasonYear': seasonYear,
       'score': score,
@@ -160,7 +171,6 @@ class AnimeModel extends AnimeEntity {
     return animeList.map((e) => e.toMap()).toList();
   }
 
-
   AnimeModel copyWith({
     int? id,
     String? username,
@@ -176,7 +186,10 @@ class AnimeModel extends AnimeEntity {
     int? popularity,
     List<String>? synonyms,
     String? bannerImage,
-    String? coverImage,
+    String? coverImageExtraLarge,
+    String? coverImageLarge,
+    String? coverImageMedium,
+    String? coverImageColor,
     String? season,
     int? seasonYear,
     int? score,
@@ -203,7 +216,10 @@ class AnimeModel extends AnimeEntity {
       popularity: popularity ?? this.popularity,
       synonyms: synonyms ?? this.synonyms,
       bannerImage: bannerImage ?? this.bannerImage,
-      coverImage: coverImage ?? this.coverImage,
+      coverImageExtraLarge: coverImageExtraLarge ?? this.coverImageExtraLarge,
+      coverImageLarge: coverImageLarge ?? this.coverImageLarge,
+      coverImageMedium: coverImageMedium ?? this.coverImageMedium,
+      coverImageColor: coverImageColor ?? this.coverImageColor,
       season: season ?? this.season,
       seasonYear: seasonYear ?? this.seasonYear,
       score: score ?? this.score,
@@ -216,7 +232,6 @@ class AnimeModel extends AnimeEntity {
       localScore: localScore ?? this.localScore,
     );
   }
-
 
   int compareTo(AnimeModel other) {
     if (score != other.score) {
@@ -241,7 +256,10 @@ class AnimeModel extends AnimeEntity {
       popularity: entity.popularity,
       synonyms: entity.synonyms,
       bannerImage: entity.bannerImage,
-      coverImage: entity.coverImage,
+      coverImageExtraLarge: entity.coverImageExtraLarge,
+      coverImageLarge: entity.coverImageLarge,
+      coverImageMedium: entity.coverImageMedium,
+      coverImageColor: entity.coverImageColor,
       season: entity.season,
       seasonYear: entity.seasonYear,
       score: entity.score,
@@ -271,7 +289,10 @@ class AnimeModel extends AnimeEntity {
       popularity: popularity,
       synonyms: synonyms,
       bannerImage: bannerImage,
-      coverImage: coverImage,
+      coverImageExtraLarge: coverImageExtraLarge,
+      coverImageLarge: coverImageLarge,
+      coverImageMedium: coverImageMedium,
+      coverImageColor: coverImageColor,
       season: season,
       seasonYear: seasonYear,
       score: score,
@@ -284,33 +305,4 @@ class AnimeModel extends AnimeEntity {
       localScore: localScore,
     );
   }
-
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'username': username,
-  //     'title': title,
-  //     'type': type,
-  //     'format': format,
-  //     'status': status,
-  //     'episodes': episodes,
-  //     'duration': duration,
-  //     'source': source,
-  //     'studios': studios,
-  //     'genres': genres,
-  //     'popularity': popularity,
-  //     'synonyms': synonyms,
-  //     'bannerImage': bannerImage,
-  //     'coverImage': coverImage,
-  //     'season': season,
-  //     'seasonYear': seasonYear,
-  //     'score': score,
-  //     'progress': progress,
-  //     'repeat': repeat,
-  //     'notes': notes,
-  //     'startedAt': startedAt.toIso8601String(),
-  //     'completedAt': completedAt.toIso8601String(),
-  //     'updatedAt': updatedAt.toIso8601String(),
-  //     'localScore': localScore,
-  //   };
-  // }
 }

@@ -51,11 +51,11 @@ class _ExpandableFloatingButtonState extends State<ExpandableFloatingButton>
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(_isExpanded ? 16 : 12),
+          color: Theme.of(context).primaryColor.withOpacity(0.8), // Adjust opacity here
+          borderRadius: BorderRadius.circular(_isExpanded ? 11 : 11),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(8),
           child: Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -73,17 +73,6 @@ class _ExpandableFloatingButtonState extends State<ExpandableFloatingButton>
                           color: Colors.white,
                         ),
                       ),
-                      // const SizedBox(height: 4),
-                      // SizedBox(
-                      //   height: 16, // Fixed height for text
-                      //   child: Text(
-                      //     action.label,
-                      //     style: const TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 12,
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 )),
@@ -100,17 +89,6 @@ class _ExpandableFloatingButtonState extends State<ExpandableFloatingButton>
                         color: Colors.white,
                       ),
                     ),
-                    // const SizedBox(height: 4),
-                    // SizedBox(
-                    //   height: 16, // Fixed height for text
-                    //   child: Text(
-                    //     _isExpanded ? 'Close' : 'Menu',
-                    //     style: const TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 12,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

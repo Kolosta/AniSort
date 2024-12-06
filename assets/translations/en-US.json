@@ -12,6 +12,7 @@
   "light_mode": "Light Mode",
   "dark_mode": "Dark Mode",
   "change_language": "Change Language",
+  "language": "Language",
   "add_product": "Add Product",
   "edit_product": "Edit Product",
   "insert_product_name": "Insert product name",

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../configs/injector/injector_conf.dart';
@@ -10,7 +9,6 @@ import '../../../../core/blocs/translate/translate_bloc.dart';
 import '../../../../core/constants/list_translation_locale.dart';
 import '../../../../routes/app_route_path.dart';
 import '../../../../widgets/dialog_widget.dart';
-import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/leading_back_button_widget.dart';
 import '../../../../widgets/loading_widget.dart';
 import '../../../../widgets/snackbar_widget.dart';
@@ -69,23 +67,37 @@ class _ParamsPageState extends State<ParamsPage> {
     _productBloc.add(GetProductListEvent());
   }
 
-  Widget _buildRow(BuildContext context, String label, Widget action) {
+  Widget _buildRow(BuildContext context, String label, String value, VoidCallback onPressed, IconData icon, String buttonText) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label.tr(),
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-        SizedBox(height: 4.h),
-        DefaultTextStyle(
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-          child: action,
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      label.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      value,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    ),
+                  ],
+                ),
+                TextButton.icon(
+                  onPressed: onPressed,
+                  icon: Icon(icon),
+                  label: Text(buttonText),
+                ),
+              ],
+            ),
+          ],
         ),
         const Divider(),
       ],
@@ -132,53 +144,37 @@ class _ParamsPageState extends State<ParamsPage> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  _buildRow(context, "username", Text(widget.user.username ?? "")),
-                  _buildRow(context, "email", Text(widget.user.email ?? "")),
+                  _buildRow(context, "username", widget.user.username ?? "", () {}, Icons.person, ""),
+                  _buildRow(context, "email", widget.user.email ?? "", () {}, Icons.email, ""),
                   _buildRow(
                     context,
-                    "change_theme",
-                    AppButtonWidget(
-                      label: context.read<ThemeBloc>().state.isDarkMode ? "light_mode".tr() : "dark_mode".tr(),
-                      callback: () {
-                        _changeTheme(context);
-                      },
-                      buttonType: ButtonType.text,
-                      paddingHorizontal: 10.w,
-                      paddingVertical: 0.h,
-                      icon: Icon(
-                        context.read<ThemeBloc>().state.isDarkMode
-                            ? Icons.light_mode_rounded
-                            : Icons.dark_mode_rounded,
-                      ),
-                    ),
+                    "theme",
+                    context.read<ThemeBloc>().state.isDarkMode ? "Dark" : "Light",
+                    () {
+                      _changeTheme(context);
+                    },
+                    context.read<ThemeBloc>().state.isDarkMode ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                    "Change",
                   ),
                   _buildRow(
                     context,
-                    "change_language",
-                    AppButtonWidget(
-                      label: targetLanguageLabel,
-                      callback: () {
-                        _changeLanguage(context, currentLanguageCode);
-                      },
-                      buttonType: ButtonType.text,
-                      paddingHorizontal: 10.w,
-                      paddingVertical: 0.h,
-                      icon: const Icon(Icons.language),
-                    ),
+                    "language",
+                    targetLanguageLabel,
+                    () {
+                      _changeLanguage(context, currentLanguageCode);
+                    },
+                    Icons.language,
+                    "Change",
                   ),
                   _buildRow(
                     context,
                     "logout",
-                    AppButtonWidget(
-                      label: "logout".tr(),
-                      callback: () {
-                        _logout(context);
-                      },
-                      buttonType: ButtonType.text,
-                      paddingHorizontal: 10.w,
-                      paddingVertical: 0.h,
-                      icon: const Icon(Icons.logout),
-                    ),
+                    "",
+                    () {
+                      _logout(context);
+                    },
+                    Icons.logout,
+                    "Logout",
                   ),
                 ],
               ),

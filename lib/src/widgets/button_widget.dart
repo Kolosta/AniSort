@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../core/themes/app_font.dart';
+import '../core/themes/app_color.dart';
+
 enum ButtonType { elevated, text }
 
 class AppButtonWidget extends StatelessWidget {
@@ -9,6 +12,7 @@ class AppButtonWidget extends StatelessWidget {
   final double? paddingHorizontal;
   final double? paddingVertical;
   final Widget? icon;
+  final TextStyle? textStyle;
 
   const AppButtonWidget({
     super.key,
@@ -18,10 +22,12 @@ class AppButtonWidget extends StatelessWidget {
     required this.callback,
     this.buttonType = ButtonType.elevated,
     this.icon,
+    this.textStyle,
   });
 
   @override
   Widget build(BuildContext context) {
+
     final ButtonStyle commonStyle = ButtonStyle(
       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
@@ -42,10 +48,14 @@ class AppButtonWidget extends StatelessWidget {
             children: [
               icon!,
               const SizedBox(width: 8),
-              Text(label),
+              Text(
+                label,
+              ),
             ],
           )
-        : Text(label);
+        : Text(
+            label,
+          );
 
     switch (buttonType) {
       case ButtonType.text:

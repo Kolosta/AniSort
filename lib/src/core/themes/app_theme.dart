@@ -9,36 +9,163 @@ class AppTheme {
   AppTheme._();
 
   static ThemeData data(bool isDark) {
+    final colorScheme = isDark ? darkColorScheme : lightColorScheme;
+
     return ThemeData(
-      brightness: isDark ? Brightness.dark : Brightness.light,
+      colorScheme: colorScheme,
+      brightness: colorScheme.brightness,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      // fontFamily: AppFont.fontFamily,
+      fontFamily: GoogleFonts.inter().fontFamily,
+      // colorSchemeSeed: isDark ? const Color(0xFF84BF72) : const Color(0xFF75164F),
+
+      // textTheme: TextTheme(
+      //   bodySmall: AppFont.regular,
+      //   bodyMedium: AppFont.regular,
+      //   bodyLarge: AppFont.regular,
+      // ),
+
+      textTheme: TextTheme(
+        displayLarge: GoogleFonts.inter(fontSize: 57.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        displayMedium: GoogleFonts.inter(fontSize: 45.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        displaySmall: GoogleFonts.inter(fontSize: 36.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        headlineLarge: GoogleFonts.inter(fontSize: 32.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        headlineMedium: GoogleFonts.inter(fontSize: 28.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        headlineSmall: GoogleFonts.inter(fontSize: 24.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        titleLarge: GoogleFonts.inter(fontSize: 22.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        titleMedium: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        titleSmall: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        bodyLarge: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurface),
+        bodyMedium: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurface),
+        bodySmall: GoogleFonts.inter(fontSize: 12.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurface),
+        labelLarge: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        labelMedium: GoogleFonts.inter(fontSize: 12.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+        labelSmall: GoogleFonts.inter(fontSize: 11.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+      ),
+
       appBarTheme: AppBarTheme(
-        backgroundColor: isDark ? AppColor.primaryLight : AppColor.secondaryLight,
+        backgroundColor: colorScheme.primary,
         centerTitle: true,
         elevation: 2.h,
-        titleTextStyle: AppFont.bold.s16,
+        titleTextStyle: AppFont.emphasizeBold.copyWith(color: colorScheme.onPrimary),
+        iconTheme: IconThemeData(color: colorScheme.onPrimary),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: isDark ? AppColor.secondaryDark : AppColor.secondaryLight,
+        backgroundColor: colorScheme.secondary,
         foregroundColor: isDark ? Colors.white : Colors.black,
         elevation: 2.h,
-        extendedTextStyle: AppFont.normal.s14,
+        extendedTextStyle: AppFont.regular,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: isDark ? AppColor.primaryDark : AppColor.secondaryDark,
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+          // iconColor: Colors.green,
+          // overlayColor: Colors.red,
+          // surfaceTintColor: Colors.blue,
           elevation: 2.h,
-          textStyle: AppFont.normal.s14,
+          textStyle: AppFont.emphasize,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.r),
           ),
         ),
       ),
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      fontFamily: GoogleFonts.poppins().fontFamily,
-      textTheme: TextTheme(
-        bodySmall: AppFont.normal.s12,
-        bodyMedium: AppFont.normal.s14,
-        bodyLarge: AppFont.normal.s16,
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          // primary: colorScheme.primary,
+          textStyle: AppFont.emphasize,
+          foregroundColor: colorScheme.secondary,
+          iconColor: colorScheme.secondary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6.r),
+          ),
+        ),
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colorScheme.secondary,
+      ),
+      iconTheme: IconThemeData(
+        color: colorScheme.onSurface,
+      ),
+
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: colorScheme.outline,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(
+            color: colorScheme.secondary,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(
+            color: colorScheme.outline,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(
+            color: colorScheme.error,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(
+            color: colorScheme.error,
+          ),
+        ),
+        iconColor: colorScheme.onSurfaceVariant,
+        errorStyle: TextStyle(color: colorScheme.error, fontWeight: FontWeight.normal,),
+        labelStyle: TextStyle(color: colorScheme.onSurface, fontWeight: FontWeight.normal,),
+        focusColor: colorScheme.secondary,
+        floatingLabelStyle: TextStyle(color: colorScheme.secondary, fontWeight: FontWeight.bold),
+        hintStyle: TextStyle(color: colorScheme.secondary,fontWeight: FontWeight.normal,),
+        helperStyle: TextStyle(color: colorScheme.secondary, fontWeight: FontWeight.normal,),
+        // counterStyle: TextStyle(color: colorScheme.secondary, fontWeight: FontWeight.normal,),
+        // prefixStyle: TextStyle(color: colorScheme.secondary, fontWeight: FontWeight.normal,),
+        // suffixStyle: TextStyle(color: colorScheme.secondary, fontWeight: FontWeight.normal,),
+        // floatingLabelStyle: TextStyle(color: colorScheme.secondary, fontWeight: FontWeight.normal,),
+
+        // contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+      ),
+
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedLabelStyle: const TextStyle(
+          fontSize: 13.5,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
+        selectedIconTheme: IconThemeData(
+          // color: isDark ? AppColor.primaryDark : AppColor.primaryLight,
+          color: colorScheme.secondary,
+        ),
+        unselectedIconTheme: IconThemeData(
+          // color: isDark ? AppColor.onPrimaryDark : AppColor.onPrimaryLight,
+          color: colorScheme.onPrimary,
+        ),
+        selectedItemColor: colorScheme.secondary,
+        unselectedItemColor: colorScheme.onPrimary,
+        backgroundColor: colorScheme.primary,
+      ),
+
+      cardTheme: CardTheme(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      dividerTheme: DividerThemeData(
+        color: colorScheme.outline,
+        thickness: 1.h,
+        space: 15,
       ),
     );
   }

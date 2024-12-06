@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
 
 class AnimeEntity extends Equatable {
@@ -15,7 +17,10 @@ class AnimeEntity extends Equatable {
   final int popularity;
   final List<String> synonyms;
   final String bannerImage;
-  final String coverImage;
+  final String coverImageExtraLarge;
+  final String coverImageLarge;
+  final String coverImageMedium;
+  final String? coverImageColor; // Nullable
   final String season;
   final int seasonYear;
   final int score;
@@ -42,7 +47,10 @@ class AnimeEntity extends Equatable {
     required this.popularity,
     required this.synonyms,
     required this.bannerImage,
-    required this.coverImage,
+    required this.coverImageExtraLarge,
+    required this.coverImageLarge,
+    required this.coverImageMedium,
+    this.coverImageColor,
     required this.season,
     required this.seasonYear,
     required this.score,
@@ -54,6 +62,12 @@ class AnimeEntity extends Equatable {
     required this.updatedAt,
     required this.localScore,
   });
+
+  Color getCoverImageColor() {
+    return coverImageColor != null
+        ? Color(int.parse(coverImageColor!.replaceFirst('#', '0xff')))
+        : const Color(0xffedf1f5); // Default color
+  }
 
   @override
   List<Object?> get props => [
@@ -71,7 +85,10 @@ class AnimeEntity extends Equatable {
         popularity,
         synonyms,
         bannerImage,
-        coverImage,
+        coverImageExtraLarge,
+        coverImageLarge,
+        coverImageMedium,
+        coverImageColor,
         season,
         seasonYear,
         score,

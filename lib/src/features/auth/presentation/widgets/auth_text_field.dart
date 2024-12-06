@@ -39,6 +39,8 @@ class _AuthTextFieldState<T> extends State<AuthTextField<T>> {
   @override
   Widget build(BuildContext context) {
     final formBloc = context.read<T>();
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 15.w,
@@ -48,7 +50,7 @@ class _AuthTextFieldState<T> extends State<AuthTextField<T>> {
         initialValue: widget.initialValue,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: widget.isSecure ?? false ? _isVisible : false,
-        cursorColor: AppColor.secondaryLight,
+        cursorColor: colorScheme.secondary,
         onChanged: widget.onChanged,
         inputFormatters: widget.inputFormat,
         validator: (val) {
@@ -88,15 +90,8 @@ class _AuthTextFieldState<T> extends State<AuthTextField<T>> {
                         ? Icons.visibility_rounded
                         : Icons.visibility_off_rounded,
                   ),
-                  splashRadius: 20.r,
                 )
               : null,
-          border: const OutlineInputBorder(),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColor.secondaryLight,
-            ),
-          ),
         ),
       ),
     );

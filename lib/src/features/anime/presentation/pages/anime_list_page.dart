@@ -94,7 +94,7 @@ class _AnimeListPageState extends State<AnimeListPage> {
                         child: Center(
                           child: Text(
                             'No anime in cache'.tr(),
-                            style: AppFont.normal.s16.copyWith(
+                            style: AppFont.regular.copyWith(
                               color: isDarkMode ? Colors.white : Colors.black,
                             ),
                           ),
@@ -166,7 +166,7 @@ class _AnimeListPageState extends State<AnimeListPage> {
           ),
           Text(
             label,
-            style: AppFont.normal.s12.copyWith(
+            style: AppFont.regular.copyWith(
               color: isDarkMode ? Colors.white : Colors.black,
             ),
           ),

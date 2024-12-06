@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/themes/app_font.dart';
 import '../../../../routes/app_route_path.dart';
 import '../../../../widgets/dialog_widget.dart';
 import '../../../../widgets/error_widget.dart';
@@ -36,18 +37,45 @@ class ProductDataWidget extends StatelessWidget {
   Widget _priceChip(int price) {
     if (price > 0 && price <= 10000) {
       return Chip(
-        label: Text("cheap".tr()),
-        backgroundColor: Colors.green,
+        label: Text(
+          "cheap".tr(),
+          style: AppFont.regular,
+        ),
+        backgroundColor: Colors.green[400],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
       );
     } else if (price > 10000 && price <= 100000) {
       return Chip(
-        label: Text("medium".tr()),
+        label: Text(
+          "medium".tr(),
+          style: AppFont.regular,
+        ),
         backgroundColor: Colors.orange,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
       );
     } else if (price > 100000) {
       return Chip(
-        label: Text("expensive".tr()),
+        label: Text(
+          "expensive".tr(),
+          style: AppFont.regular,
+        ),
         backgroundColor: Colors.red,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
       );
     } else {
       return const SizedBox();
@@ -99,10 +127,16 @@ class ProductDataWidget extends StatelessWidget {
             children: products
                 .map(
                   (e) => ListTile(
-                    title: Text(e.name ?? ""),
+                    title: Text(
+                      e.name ?? "",
+                      style: AppFont.emphasize,
+                    ),
                     subtitle: Row(
                       children: [
-                        Text(e.price.toString()),
+                        Text(
+                          e.price.toString(),
+                          style: AppFont.regularBold
+                        ),
                         20.wS,
                         _priceChip(e.price ?? 0),
                       ],

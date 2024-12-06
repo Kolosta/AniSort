@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../configs/injector/injector_conf.dart';
+import '../../../../core/themes/app_color.dart';
 import '../../../../routes/app_route_path.dart';
 import '../../../../widgets/button_widget.dart';
 import '../../../../widgets/loading_widget.dart';
@@ -46,7 +47,11 @@ class LoginPage extends StatelessWidget {
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (_, state) {
                       if (state is AuthLoginFailureState) {
-                        appSnackBar(context, Colors.red, state.message);
+                        final errorColor = Theme.of(context).brightness == Brightness.dark
+                            ? AppColor.errorDark
+                            : AppColor.errorLight;
+                        appSnackBar(context, errorColor, state.message);
+                        // appSnackBar(context, Theme.of(context).brightness == Brightness.dark ? AppColor.errorDark : AppColor.errorLight, state.message);
                       } else if (state is AuthLoginSuccessState) {
                         final user = state.data;
                         context.goNamed(

@@ -24,14 +24,14 @@ class AuthPage extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: "app_name".tr(),
-                      style: AppFont.bold.s25,
+                      style: AppFont.emphasizeBold,
                     ),
                     const TextSpan(
                       text: "\n",
                     ),
                     TextSpan(
                       text: "title".tr(),
-                      style: AppFont.bold.s16,
+                      style: AppFont.emphasize,
                     ),
                   ],
                 ),
@@ -45,6 +45,7 @@ class AuthPage extends StatelessWidget {
                   callback: () {
                     context.pushNamed(AppRoute.login.name);
                   },
+                  // textStyle: AppFont.emphasizeBold,
                   paddingHorizontal: 40.w,
                   paddingVertical: 10.h,
                 ),
@@ -61,6 +62,7 @@ class AuthPage extends StatelessWidget {
                   paddingVertical: 10.h,
                 ),
               ),
+              //elevated button avec on pressed vide et un texte
             ],
           ),
         ),

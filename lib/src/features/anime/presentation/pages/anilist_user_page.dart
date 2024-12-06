@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:anilist_flutter/src/core/extensions/string_extension.dart';
 
 import '../../../../configs/injector/injector_conf.dart';
-import '../../../../widgets/leading_back_button_widget.dart';
+import '../../../../core/themes/app_font.dart';
 import '../../data/models/models.dart';
 import '../bloc/anilist_user/anilist_user_bloc.dart';
 
@@ -20,10 +20,6 @@ class AnilistUserPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<AnilistUserBloc>()..add(GetAnilistUserEvent(username)),
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('anilist_user_info'.tr()),
-        //   leading: const AppBackButton(),
-        // ),
         body: BlocBuilder<AnilistUserBloc, AnilistUserState>(
           builder: (context, state) {
             if (state is AnilistUserLoadingState) {
@@ -35,10 +31,6 @@ class AnilistUserPage extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -49,12 +41,14 @@ class AnilistUserPage extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 50,
                             backgroundImage: NetworkImage(user.avatar ?? 'assets/images/oeuf_a_la_loupe.png'),
+                            backgroundColor: Colors.transparent,
                           ),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           user.name ?? 'N/A',
                           style: Theme.of(context).textTheme.headlineSmall,
+                          // style: AppFont.emphasize,
                         ),
                         const SizedBox(height: 8),
                         _buildRichText(user.about ?? 'no_description'.tr(), context),
