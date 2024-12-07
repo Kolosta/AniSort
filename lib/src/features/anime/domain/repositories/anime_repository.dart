@@ -7,4 +7,5 @@ abstract class AnimeRepository {
   Future<Either<Failure, List<AnimeEntity>>> getLocalAnimeList();
   Future<Either<Failure, List<AnimeEntity>>> getAnimeListFromApi(String username, String type, List<String> status);
   Future<Either<Failure, void>> uploadAnimeListToFirebase();
+  Future<Either<Failure, void>> validateAnimeOrder(List<AnimeEntity> animeList);
 }

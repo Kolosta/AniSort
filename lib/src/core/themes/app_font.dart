@@ -22,20 +22,20 @@ class AppFont {
   static TextStyle emphasizeBoldGray = GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey);
 }
 
-extension AppFontSize on TextStyle {
-  TextStyle get s12 {
-    return copyWith(fontSize: 12.sp);
-  }
-
-  TextStyle get s14 {
-    return copyWith(fontSize: 14.sp);
-  }
-
-  TextStyle get s16 {
-    return copyWith(fontSize: 16.sp);
-  }
-
-  TextStyle get s25 {
-    return copyWith(fontSize: 25.sp);
-  }
-}
+// extension AppFontSize on TextStyle {
+//   TextStyle get s12 {
+//     return copyWith(fontSize: 12.sp);
+//   }
+//
+//   TextStyle get s14 {
+//     return copyWith(fontSize: 14.sp);
+//   }
+//
+//   TextStyle get s16 {
+//     return copyWith(fontSize: 16.sp);
+//   }
+//
+//   TextStyle get s25 {
+//     return copyWith(fontSize: 25.sp);
+//   }
+// }

@@ -7,10 +7,12 @@ import '../../../../core/utils/logger.dart';
 abstract class AnimeLocalDataSource {
   // Future<void> saveLocalAnimeList(List<AnimeModel> animeList);
   Future<List<AnimeModel>> getLocalAnimeList();
+  Future<void> validateAnimeOrder(List<AnimeModel> animeList);
 }
 
 class AnimeLocalDataSourceImpl implements AnimeLocalDataSource {
   final HiveLocalStorage _localStorage;
+
   const AnimeLocalDataSourceImpl(this._localStorage);
 
   // @override
@@ -38,6 +40,22 @@ class AnimeLocalDataSourceImpl implements AnimeLocalDataSource {
       return AnimeModel.fromMapList(convertedResponse);
     } catch (e) {
       logger.e(e);
+      throw CacheException();
+    }
+  }
+
+
+  Future<void> validateAnimeOrder(List<AnimeModel> animeList) async {
+    try {
+      for (var i = 0; i < animeList.length; i++) {
+        animeList[i] = animeList[i].copyWith(localScore: i);
+      }
+      await _localStorage.save(
+        key: 'animeList',
+        value: AnimeModel.toMapList(animeList),
+        boxName: 'cache',
+      );
+    } catch (e) {
       throw CacheException();
     }
   }

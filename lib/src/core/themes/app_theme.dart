@@ -15,32 +15,30 @@ class AppTheme {
       colorScheme: colorScheme,
       brightness: colorScheme.brightness,
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      // fontFamily: AppFont.fontFamily,
       fontFamily: GoogleFonts.inter().fontFamily,
       // colorSchemeSeed: isDark ? const Color(0xFF84BF72) : const Color(0xFF75164F),
 
-      // textTheme: TextTheme(
-      //   bodySmall: AppFont.regular,
-      //   bodyMedium: AppFont.regular,
-      //   bodyLarge: AppFont.regular,
-      // ),
 
       textTheme: TextTheme(
         displayLarge: GoogleFonts.inter(fontSize: 57.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         displayMedium: GoogleFonts.inter(fontSize: 45.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         displaySmall: GoogleFonts.inter(fontSize: 36.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+
         headlineLarge: GoogleFonts.inter(fontSize: 32.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         headlineMedium: GoogleFonts.inter(fontSize: 28.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         headlineSmall: GoogleFonts.inter(fontSize: 24.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+
         titleLarge: GoogleFonts.inter(fontSize: 22.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         titleMedium: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         titleSmall: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+
         bodyLarge: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurface),
         bodyMedium: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurface),
         bodySmall: GoogleFonts.inter(fontSize: 12.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurface),
-        labelLarge: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
-        labelMedium: GoogleFonts.inter(fontSize: 12.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
-        labelSmall: GoogleFonts.inter(fontSize: 11.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+
+        labelLarge: GoogleFonts.inter(fontSize: 13.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurfaceVariant),
+        labelMedium: GoogleFonts.inter(fontSize: 11.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurfaceVariant),
+        labelSmall: GoogleFonts.inter(fontSize: 10.sp, fontWeight: FontWeight.normal, color: colorScheme.onSurfaceVariant),
       ),
 
       appBarTheme: AppBarTheme(
@@ -79,6 +77,14 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.r),
           ),
+        ),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6.r),
+          ),
+          foregroundColor: colorScheme.secondary,
         ),
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
@@ -143,15 +149,16 @@ class AppTheme {
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
-        selectedIconTheme: IconThemeData(
-          // color: isDark ? AppColor.primaryDark : AppColor.primaryLight,
-          color: colorScheme.secondary,
-        ),
+        // selectedIconTheme: IconThemeData(
+        //   // color: isDark ? AppColor.primaryDark : AppColor.primaryLight,
+        //   color: colorScheme.secondaryFixed,
+        // ),
         unselectedIconTheme: IconThemeData(
           // color: isDark ? AppColor.onPrimaryDark : AppColor.onPrimaryLight,
           color: colorScheme.onPrimary,
         ),
-        selectedItemColor: colorScheme.secondary,
+        // selectedItemColor: colorScheme.secondaryFixed,
+        selectedItemColor: colorScheme.secondaryFixed,
         unselectedItemColor: colorScheme.onPrimary,
         backgroundColor: colorScheme.primary,
       ),

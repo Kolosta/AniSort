@@ -124,6 +124,16 @@ class AnimeRepositoryImpl implements AnimeRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> validateAnimeOrder(List<AnimeEntity> animeList) async {
+    try {
+      await _localDataSource.validateAnimeOrder(animeList.map((anime) => AnimeModel.fromEntity(anime)).toList());
+      return const Right(null);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
+
   // @override
   // Future<Either<Failure, void>> uploadAnimeListToFirebase(List<AnimeModel> animeList) async {
   //   try {

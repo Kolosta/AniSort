@@ -25,8 +25,14 @@ class AppColor {
 
   static const onSurfaceLight = Color(0xFF000000);
   static const onSurfaceDark = Color(0xFFFFFFFF);
-  static const onSurfaceVariantLight = Color(0xFF303030);
+  static const onSurfaceVariantLight = Color(0xFF6E6E6E);
   static const onSurfaceVariantDark = Color(0xFF838383);
+
+  static const primaryFixedLight = Color(0xFFB56E18);
+  static const primaryFixedDark = Color(0xFFDC8825);
+  static const secondaryFixedLight = Color(0xFF112A65);
+  static const secondaryFixedDark = Color(0xFF7397F3);
+
 
   static const outlineLight = Color(0xFF6E6E6E);
   static const outlineDark = Color(0xFFBDBDBD);
@@ -62,6 +68,9 @@ const lightColorScheme = ColorScheme(
   error: AppColor.errorLight,
   onError: AppColor.onPrimaryLight,
 
+  primaryFixed: AppColor.primaryFixedLight,
+  secondaryFixed: AppColor.secondaryFixedLight,
+
 );
 
 const darkColorScheme = ColorScheme(
@@ -81,5 +90,8 @@ const darkColorScheme = ColorScheme(
 
   error: AppColor.errorDark,
   onError: AppColor.onPrimaryDark,
+
+  primaryFixed: AppColor.primaryFixedDark,
+  secondaryFixed: AppColor.secondaryFixedDark,
 );
 

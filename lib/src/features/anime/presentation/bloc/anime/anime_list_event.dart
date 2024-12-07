@@ -42,4 +42,22 @@ class GetAnimeListFromApiEvent extends AnimeListEvent {
   List<Object> get props => [username, type, status];
 }
 
+class UpdateAnimeListEvent extends AnimeListEvent {
+  final List<AnimeEntity> updatedList;
+
+  const UpdateAnimeListEvent(this.updatedList);
+
+  @override
+  List<Object> get props => [updatedList];
+}
+
+class ValidateAnimeOrderEvent extends AnimeListEvent {
+  final List<AnimeModel> animeList;
+
+  const ValidateAnimeOrderEvent(this.animeList);
+
+  @override
+  List<Object> get props => [animeList];
+}
+
 class UploadAnimeListToFirebaseEvent extends AnimeListEvent {}

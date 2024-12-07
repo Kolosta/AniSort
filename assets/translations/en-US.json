@@ -44,5 +44,6 @@
   "import": "Import",
   "clear_cache": "Clear Cache",
   "show_cache": "Show Cache",
-  "upload": "Upload"
+  "upload": "Upload",
+  "theme": "Theme"
 }

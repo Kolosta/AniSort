@@ -44,5 +44,6 @@
   "import": "Importer",
   "clear_cache": "Vider le cache",
   "show_cache": "Afficher le cache",
-  "upload": "Télécharger"
+  "upload": "Télécharger",
+  "theme": "Theme"
 }

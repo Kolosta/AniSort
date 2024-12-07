@@ -30,7 +30,7 @@ class AppRouteConf {
           ),
         ],
       ),
-      GoRoute(
+      GoRoute( //TODO : Deprecated
         path: AppRoute.home.path,
         name: AppRoute.home.name,
         builder: (_, state) {

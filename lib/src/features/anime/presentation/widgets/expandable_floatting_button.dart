@@ -70,7 +70,7 @@ class _ExpandableFloatingButtonState extends State<ExpandableFloatingButton>
                         padding: const EdgeInsets.all(6.0),
                         child: Icon(
                           action.icon,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
                     ],
@@ -86,7 +86,7 @@ class _ExpandableFloatingButtonState extends State<ExpandableFloatingButton>
                       padding: const EdgeInsets.all(6.0),
                       child: Icon(
                         _isExpanded ? Icons.close : Icons.menu,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],

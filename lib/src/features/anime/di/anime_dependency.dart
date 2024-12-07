@@ -9,6 +9,7 @@ import '../data/repositories/anime_repository_impl.dart';
 import '../domain/usecases/get_anime_list_from_api_usecase.dart';
 import '../domain/usecases/get_local_anime_list_usecase.dart';
 import '../domain/usecases/upload_anime_list_to_firebase_usecase.dart';
+import '../domain/usecases/validate_anime_order_usecase.dart';
 
 class AnimeDependency {
   AnimeDependency._();
@@ -21,6 +22,7 @@ class AnimeDependency {
         getIt<GetLocalAnimeListUseCase>(),
         getIt<GetAnimeListFromApiUseCase>(),
         getIt<UploadAnimeListToFirebaseUseCase>(),
+        getIt<ValidateAnimeOrderUseCase>(),
       ),
     );
 
@@ -43,6 +45,11 @@ class AnimeDependency {
     getIt.registerLazySingleton(
       () => UploadAnimeListToFirebaseUseCase(
         getIt<AnimeRepositoryImpl>()
+      ),
+    );
+    getIt.registerLazySingleton(
+          () => ValidateAnimeOrderUseCase(
+        getIt<AnimeRepositoryImpl>(),
       ),
     );
 

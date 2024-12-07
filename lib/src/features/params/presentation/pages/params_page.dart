@@ -71,33 +71,42 @@ class _ParamsPageState extends State<ParamsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      label.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0), // Add horizontal margins
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label.tr(),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    value,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ],
+              ),
+              buttonText.isEmpty
+                  ? IconButton(
+                      onPressed: onPressed,
+                      icon: Icon(icon),
+                    )
+                  : TextButton(
+                      onPressed: onPressed,
+                      child: Row(
+                        children: [
+                          Text(buttonText),
+                          const SizedBox(width: 10),
+                          Icon(icon),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      value,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                    ),
-                  ],
-                ),
-                TextButton.icon(
-                  onPressed: onPressed,
-                  icon: Icon(icon),
-                  label: Text(buttonText),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
         const Divider(),
       ],
@@ -148,33 +157,33 @@ class _ParamsPageState extends State<ParamsPage> {
                   _buildRow(context, "email", widget.user.email ?? "", () {}, Icons.email, ""),
                   _buildRow(
                     context,
-                    "theme",
-                    context.read<ThemeBloc>().state.isDarkMode ? "Dark" : "Light",
+                    "theme".tr(),
+                    context.read<ThemeBloc>().state.isDarkMode ? "dark_mode".tr() : "light_mode".tr(),
                     () {
                       _changeTheme(context);
                     },
                     context.read<ThemeBloc>().state.isDarkMode ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-                    "Change",
+                    "change".tr(),
                   ),
                   _buildRow(
                     context,
-                    "language",
+                    "language".tr(),
                     targetLanguageLabel,
                     () {
                       _changeLanguage(context, currentLanguageCode);
                     },
                     Icons.language,
-                    "Change",
+                    "change".tr(),
                   ),
                   _buildRow(
                     context,
-                    "logout",
+                    "logout".tr(),
                     "",
                     () {
                       _logout(context);
                     },
                     Icons.logout,
-                    "Logout",
+                    "logout".tr(),
                   ),
                 ],
               ),

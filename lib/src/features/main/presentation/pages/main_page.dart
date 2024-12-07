@@ -9,6 +9,7 @@ import '../../../../core/themes/app_color.dart';
 import '../../../../routes/app_route_path.dart';
 import '../../../../routes/routes.dart';
 import '../../../anime/domain/entities/anime_list_params.dart';
+import '../../../anime/presentation/pages/sortable_anime_list_page.dart';
 
 class MainPage extends StatefulWidget {
   final UserEntity user;
@@ -28,7 +29,8 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _pages.addAll([
       HomePage(user: widget.user),
-      AnimeListPage(username: widget.user.username ?? '', type: 'ANIME', status: ['CURRENT']),
+      // AnimeListPage(username: widget.user.username ?? '', type: 'ANIME', status: ['CURRENT']),
+      SortableAnimeListPage(username: widget.user.username ?? '', type: 'ANIME', status: ['COMPLETED']),
       AnilistUserPage(username: widget.user.username ?? ''),
     ]);
   }
