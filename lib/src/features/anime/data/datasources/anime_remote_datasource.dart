@@ -110,10 +110,17 @@ class AnimeRemoteDataSourceImpl implements AnimeRemoteDataSource {
           .map<AnimeModel>((entry) => AnimeModel.fromJson(entry))
           .toList();
 
+      // Remove duplicates
+      final uniqueAnime = <int, AnimeModel>{};
+      for (var anime in data) {
+        uniqueAnime[anime.id] = anime;
+      }
+
       // Save to local storage
       // await _localDataSource.saveLocalAnimeList(data);
 
-      return data;
+      // return data;
+      return uniqueAnime.values.toList();
     } catch (e) {
       logger.e(e);
       throw ServerException('A error occurred: ${e.toString()}');

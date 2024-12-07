@@ -5,12 +5,10 @@ import 'package:hive/hive.dart';
 
 import '../../../../configs/injector/injector_conf.dart';
 import '../../../../core/utils/logger.dart';
+import '../../../../widgets/proxy_decorator.dart';
 import '../../data/models/anime_model.dart';
 import '../bloc/anime/anime_list_bloc.dart';
 import '../widgets/anime_tile.dart';
-import '../../../../core/themes/app_color.dart';
-import '../../../../core/themes/app_font.dart';
-import '../../../../core/blocs/theme/theme_bloc.dart';
 import '../widgets/expandable_floatting_button.dart';
 
 class SortableAnimeListPage extends StatefulWidget {
@@ -110,15 +108,14 @@ class _SortableAnimeListPage extends State<SortableAnimeListPage> {
                       return ReorderableListView(
                         padding: const EdgeInsets.all(10),
                         onReorder: _updateAnimeList,
+                        proxyDecorator: (child, index, animation) => proxyDecorator(child, index, animation),
+                        // buildDefaultDragHandles: false,
                         children: [
                           for (final anime in _cacheData)
-                            Padding(
-                              key: ObjectKey(anime), //ValueKey(anime.id) ne gère pas le cas où on a récupéré deux fois le même anime
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                color: Colors.grey[200],
-                                child: AnimeTile(anime: anime, isFromCache: true),
-                              ),
+                            AnimeTile(
+                              key: ObjectKey(anime), // ValueKey(anime.id) ne fonctionne pas si il y a des doublons par erreur
+                              anime: anime,
+                              isFromCache: true
                             ),
                         ],
                       );

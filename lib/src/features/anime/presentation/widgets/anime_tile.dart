@@ -14,81 +14,80 @@ class AnimeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+    return Card(
+      // color: Colors.blue,
+      // color: Colors.transparent,
+      surfaceTintColor: Theme.of(context).colorScheme.tertiary,
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
       child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Local Score (colonne à gauche)
-            SizedBox(
-              width: 50,
-              child: Center(
-                child: Text(
-                  (anime.localScore + 1).toString(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Local Score (colonne à gauche)
+              SizedBox(
+                width: 50,
+                child: Center(
+                  child: Text(
+                    (anime.localScore + 1).toString(),
+                  ),
                 ),
               ),
-            ),
-            // Image de couverture avec couleur de fond et bords arrondis
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                minWidth: 50,
-                minHeight: 50,
+              // Image de couverture avec couleur de fond et bords arrondis
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minWidth: 50,
+                  minHeight: 50,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4.0),
+                  child: Stack(
+                    children: [
+                      LimitedBox(
+                        maxWidth: 50,
+                        child: Container(
+                          color: anime.getCoverImageColor(),
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: Image.network(
+                          anime.coverImageMedium,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(Icons.image_not_supported),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4.0),
-                child: Stack(
+              const SizedBox(width: 16),
+              // Informations principales
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LimitedBox(
-                      maxWidth: 50,
-                      child: Container(
-                        color: anime.getCoverImageColor(),
-                      ),
+                    Text(
+                      anime.title,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.visible,
                     ),
-                    Positioned.fill(
-                      child: Image.network(
-                        anime.coverImageMedium,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.image_not_supported),
-                      ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Status: ${anime.status} | Progress: ${anime.progress}',
+                      style: Theme.of(context).textTheme.labelMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ],
                 ),
               ),
-            ),
-            // Column(
-            //   children: [
-            //     Container(
-            //       width: 50,
-            //       color: anime.getCoverImageColor(),
-            //     ),
-            //   ],
-            // ),
-
-
-            const SizedBox(width: 16),
-            // Informations principales
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    anime.title,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    overflow: TextOverflow.visible,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Status: ${anime.status} | Progress: ${anime.progress}',
-                    style: Theme.of(context).textTheme.labelMedium,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

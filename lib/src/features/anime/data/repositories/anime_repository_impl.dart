@@ -29,6 +29,15 @@ class AnimeRepositoryImpl implements AnimeRepository {
   Future<Either<Failure, List<AnimeEntity>>> getAnimeListFromApi(String username, String type, List<String> status) async {
     try {
       final remoteAnimeList = await _remoteDataSource.fetchAnimeList(username, type, status);
+
+      // // Remove duplicates
+      // final uniqueAnime = <int, AnimeModel>{};
+      // for (var anime in remoteAnimeList) {
+      //   uniqueAnime[anime.id] = anime;
+      // }
+      //
+      // remoteAnimeList = uniqueAnime.values.toList();
+
       return Right(remoteAnimeList);
     } on ServerException {
       return Left(ServerFailure());
